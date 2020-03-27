@@ -1,0 +1,57 @@
+# ============================================================
+# heroku-buildpack-apt
+#
+# Adds support for apt-based dependencies during both compile and runtime.
+# Because sometimes you need different apps or versions than what Heroku
+# provides out of the box.
+#
+# https://devcenter.heroku.com/articles/stack-packages
+# https://github.com/douglascayers/heroku-buildpack-apt
+#
+# ------------------------------------------------------------
+
+# ============================================================
+# Packages to install or update.
+# List one app name, or link to a deb file, per line.
+#
+# To always download the default version, just mention the app's name.
+# To download a specific version, use <app>=<version> syntax.
+# Or, specify a URL to a .deb file of the version to install.
+# ------------------------------------------------------------
+
+# We want a specific version of git for consistency and reliability.
+# Same concept of why we specify node/npm engine versions in package.json.
+# We will upgrade as needed just like we manage package.json dependencies.
+# You can find all versions of git at https://launchpad.net/~git-core/+archive/ubuntu/ppa/+packages?field.status_filter=published&field.series_filter=bionic
+git=1:2.26.0-1~ppa1~ubuntu18.04.1
+
+# ============================================================
+# Non-standard repositories where to check for updates.
+# List one repo per line.
+# Format is :repo:<repo_source>.
+# ------------------------------------------------------------
+
+# Details from https://launchpad.net/~git-core/+archive/ubuntu/ppa?field.series_filter=bionic
+# See the "Technical details about this PPA" on that page for value to use in this file.
+:repo:deb http://ppa.launchpad.net/git-core/ppa/ubuntu bionic main
+
+# ============================================================
+# Public keys to verify packages.
+# List one key per line.
+# Format is :key:<name>:<url>.
+#
+# I'm not sure what rules govern values for <name>, if any.
+# The <url> should point to a text file of the public key.
+# ------------------------------------------------------------
+
+# Details from https://launchpad.net/~git-core/+archive/ubuntu/ppa?field.series_filter=bionic
+# See the "Technical details about this PPA" then look for "Signing key" link.
+# On the "Signing key" page there's a "pub" link that points to the public key.
+:key:ppa:https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xe1dd270288b4e6030699e45fa1715d88e1df1f24
+
+# The following keys were not found and complained about by the buildpack.
+# Adding them here just to eliminate the warnings/errors.
+# Learn more about these keys by pasting their "0x..." key at:
+# http://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=index&search=
+:key:postgres:http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xb97b0afcaa1a47f044f244a07fcc7d46accc4cf8
+:key:autoassignkey:http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x790bc7277767219c42c86f933b4fe6acc0b21f32
