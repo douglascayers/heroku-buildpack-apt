@@ -23,7 +23,8 @@
 # Same concept of why we specify node/npm engine versions in package.json.
 # We will upgrade as needed just like we manage package.json dependencies.
 # You can find all versions of git at https://launchpad.net/~git-core/+archive/ubuntu/ppa/+packages?field.status_filter=published&field.series_filter=bionic
-git=1:2.26.0-1~ppa1~ubuntu18.04.1
+# git=1:2.26.0-1~ppa1~ubuntu18.04.1
+git
 
 # ============================================================
 # Non-standard repositories where to check for updates.
